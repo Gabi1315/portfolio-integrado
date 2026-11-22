@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "cors": "latest",
+    "dotenv": "latest",
+    "express": "latest",
+    "mysql2": "latest",
+    "sequelize": "latest",
+    "@supabase/supabase-js": "latest"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
