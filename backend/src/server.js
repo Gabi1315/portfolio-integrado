@@ -15,7 +15,13 @@ import formacaoRoutes from './routes/formacaoRoutes.js';
 import conteudoRoutes from './routes/conteudoRoutes.js';
 import projetoRoutes from './routes/projetoRoutes.js';
 
+import { validarConfigAuth } from './config/auth.js';
+import authRoutes from './routes/authRoutes.js';
+
+validarConfigAuth();
+
 const app = express();
+app.set('trust proxy', 1);
 
 const origensPermitidas = (process.env.FRONTEND_URL || '')
   .split(',')
@@ -31,7 +37,7 @@ app.use(cors({
   }
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '100kb' }));
 
 // Models
 const Perfil = perfilFactory(sequelize);
@@ -79,6 +85,7 @@ app.get('/api/status', (_req, res) => {
 });
 
 // Rotas sem necessidade de login
+app.use('/api/auth', authRoutes);
 app.use('/api/perfil', perfilRoutes);
 app.use('/api/formacoes', formacaoRoutes);
 app.use('/api/conteudos', conteudoRoutes);
@@ -89,7 +96,7 @@ const PORT = process.env.PORT || 3333;
 async function start() {
   try {
     await sequelize.authenticate();
-    console.log('MySQL conectado');
+    console.log('Banco conectado');
 
     if (process.env.DB_SYNC === 'true' || (process.env.NODE_ENV !== 'production' && process.env.DB_SYNC !== 'false')) {
       await sequelize.sync();
@@ -102,8 +109,12 @@ async function start() {
       console.log(`Back-end rodando na porta ${PORT}`);
     });
   } catch (error) {
-    console.error('Erro ao conectar ao MySQL:', error.message);
+    console.error('Erro ao conectar ao banco:', error.message);
   }
 }
 
-start();
+if (!process.env.VERCEL) {
+  start();
+}
+
+export default app;

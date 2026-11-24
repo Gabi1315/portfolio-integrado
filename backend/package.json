@@ -1,16 +1,17 @@
 {
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "hash-senha": "node scripts/gerar-hash-senha.js"
   },
   "type": "module",
   "dependencies": {
     "cors": "latest",
     "dotenv": "latest",
     "express": "latest",
-    "mysql2": "latest",
-    "sequelize": "latest",
-    "@supabase/supabase-js": "latest"
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "latest"
   },
   "engines": {
     "node": ">=22"

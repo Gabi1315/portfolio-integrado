@@ -122,8 +122,13 @@ function Admin() {
         body: JSON.stringify({ usuario, senha })
       });
       const dados = await resposta.json();
-      if (!resposta.ok) throw new Error(dados.erro || 'Não foi possível entrar.');
-      sessionStorage.setItem('adminToken', dados.token);
+      if (resposta.status === 401 && token) {
+        sessionStorage.removeItem('adminToken');
+        setToken('');
+        setErroLogin('Sua sessão expirou. Entre novamente.');
+        throw new Error(dados?.erro || 'Sessão expirada.');
+      }
+      if (!resposta.ok) throw new Error(dados?.erro || `Erro na solicitação (${resposta.status}).`); sessionStorage.setItem('adminToken', dados.token);
       setToken(dados.token);
       setSenha('');
     } catch (erro) {

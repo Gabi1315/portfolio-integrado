@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import pg from 'pg';
 import { Sequelize } from 'sequelize';
 
 dotenv.config();
@@ -15,12 +16,13 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD || '',
   {
     host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT || 3306),
-    dialect: 'mysql',
+    port: Number(process.env.DB_PORT || 5432),
+    dialect: 'postgres',
+    dialectModule: pg,
     logging: false,
-    pool: { max: 5, min: 0, acquire: 30000, idle: 10000 },
+    pool: { max: 1, min: 0, acquire: 30000, idle: 10000 },
     ...(process.env.DB_SSL === 'true'
-      ? { dialectOptions: { ssl: { rejectUnauthorized: true } } }
+      ? { dialectOptions: { ssl: { require: true, rejectUnauthorized: false } } }
       : {})
   }
 );
