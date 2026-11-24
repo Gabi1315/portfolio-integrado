@@ -3,7 +3,9 @@ export default function QuemSouEu() {
     <section className="page">
       <h1 className="sectionTitle">QUEM SOU EU</h1>
       <div className="two">
-        <div className="photo">SUA<br />FOTO</div>
+        <div className="photo">
+          <img src="/foto.jpeg" alt="Foto de Gabriela" className="photoImg" />
+        </div>
         <div>
           <h2>Olá, eu sou Gabriela.</h2>
           <p>Este espaço apresenta um pouco sobre mim, meus interesses e minha trajetória no Ensino Médio.</p>
