@@ -231,6 +231,24 @@ function Admin() {
     } catch (e2) { setMensagem(e2.message || 'Não foi possível cadastrar o projeto.'); }
   }
 
+  function iniciarEdicao(p) {
+    setEditandoId(p.id);
+    setProjeto({
+      formacaoId: p.formacaoId ?? 1,
+      secaoId: p.secaoId ?? (secoesProjeto[0]?.id || 5),
+      titulo: p.titulo ?? '',
+      descricao: p.descricao ?? '',
+      tecnologias: p.tecnologias ?? '',
+      categoria: p.categoria ?? '',
+      imagem: p.imagem ?? '',
+      github: p.github ?? '',
+      link: p.link ?? '',
+      publicado: p.publicado ?? true
+    });
+    setMensagem('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
   async function excluirProjeto(id) {
     if (!window.confirm('Tem certeza de que deseja excluir este projeto?')) return;
     try {
@@ -268,7 +286,12 @@ function Admin() {
       {mensagem && <p className="adminMessage" role="status">{mensagem}</p>}
     </div>
 
-    <div className="adminBox"><h2>PROJETOS CADASTRADOS</h2>{projetos.length === 0 ? <p className="hint">Nenhum projeto publicado no SENAI.</p> : projetos.map((p) => <div className="adminProjectRow" key={p.id}><div><b>{p.titulo}</b><small>{p.categoria || 'Projeto'}</small></div><button type="button" className="dangerButton" onClick={() => excluirProjeto(p.id)}>EXCLUIR</button></div>)}</div>
+    <div className="adminBox"><h2>PROJETOS CADASTRADOS</h2>{projetos.length === 0 ? <p className="hint">Nenhum projeto publicado no SENAI.</p> : projetos.map((p) => <div className="adminProjectRow" key={p.id}><div><b>{p.titulo}</b><small>{p.categoria || 'Projeto'}</small></div>
+      <div className="adminProjectActions">
+        <button type="button" className="editButton" onClick={() => iniciarEdicao(p)}>EDITAR</button>
+        <button type="button" className="dangerButton" onClick={() => excluirProjeto(p.id)}>EXCLUIR</button>
+      </div>
+    </div>)}</div>
 
     <div className="adminBox"><h2>ADICIONAR CONTEÚDO • SESI</h2><form onSubmit={salvarConteudo}>
       <label>Formação<select value={conteudo.formacaoId} onChange={(e) => { const id = Number(e.target.value); setConteudo({ ...conteudo, formacaoId: id, secaoId: '' }); }}><option value={2}>SESI • Ensino Médio</option></select></label>

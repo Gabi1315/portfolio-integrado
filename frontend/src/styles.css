@@ -245,6 +245,7 @@ nav a:hover {
     gap: 50px;
     margin-top: 70px;
 }
+
 .two .primary {
     min-height: 120px;
     display: flex;
@@ -268,6 +269,7 @@ nav a:hover {
     transform: translate(-2px, -2px);
     box-shadow: 8px 8px 0 #f10b82;
 }
+
 .photo,
 .projectImg,
 .gallery div {
@@ -564,6 +566,7 @@ footer {
         font-size: 43px
     }
 }
+
 .formacoesGrid {
     display: flex;
     justify-content: center;
@@ -603,114 +606,357 @@ footer {
     transform: translate(-3px, -3px);
     box-shadow: 8px 8px 0 #f10b82;
 }
+
 /* Complementos das páginas SENAI, SESI e área administrativa */
-.formacoesGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; margin-top:28px; }
-.formacaoCard { min-height:220px; padding:25px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; gap:12px; color:#242424; text-decoration:none; background:#fff; border:2px solid #222; box-shadow:6px 6px 0 #222; transition:transform .18s,background .18s; }
-.formacaoCard:hover { background:#fce5f1; transform:translate(-2px,-2px); }
-.formacaoCard small { font-size:10px; letter-spacing:1px; }
-.formacaoCard strong { font:64px 'VT323',monospace; line-height:.9; }
-.formacaoCard span { font-size:14px; }
-.formacaoCard b { margin-top:8px; font-size:11px; }
-.sectionHeading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin:25px 0 14px; }
-.sectionHeading h2,.subjectTitle { font:28px 'VT323',monospace; margin:0; }
-.textLink { color:#b0005b; font-size:10px; font-weight:bold; }
-.errorMessage { padding:12px; border:1px solid #b0005b; background:#fff0f6; font-size:12px; }
-.subjectTabs { display:flex; flex-wrap:wrap; gap:8px; margin:24px 0; }
-.subjectTab { border:1px solid #222; padding:10px 14px; background:#fff; color:#222; font:700 11px 'Space Mono',monospace; cursor:pointer; }
-.subjectTab.active,.subjectTab:hover { background:#f10b82; color:#fff; }
-.subjectTitle { margin:12px 0 20px; }
-.bimestre { margin:22px 0; padding:18px; border:1px dashed #ca91cf; background:#fff; }
-.bimestre h3 { margin:0 0 14px; color:#b0005b; font:24px 'VT323',monospace; }
-.contentCard { padding:13px 0; border-top:1px solid #eaddea; }
-.contentCard h4 { margin:0 0 8px; font-size:13px; }
-.contentCard p { margin:0; font-size:12px; line-height:1.8; white-space:pre-wrap; }
-.adminProjectRow { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 0; border-top:1px solid #eaddea; }
-.adminProjectRow div { display:flex; flex-direction:column; gap:4px; }
-.adminProjectRow small { font-size:10px; color:#666; }
-.dangerButton { border:1px solid #a4004e; background:#fff; color:#a4004e; padding:8px 10px; font:700 10px 'Space Mono',monospace; cursor:pointer; }
-.dangerButton:hover { background:#a4004e; color:#fff; }
-.publishButton:disabled { opacity:.5; cursor:not-allowed; }
-@media(max-width:700px) { .formacoesGrid { grid-template-columns:1fr; } .sectionHeading { align-items:flex-start; flex-direction:column; } .adminProjectRow { align-items:flex-start; } }
-.cancelButton,.editButton { border:1px solid #222; background:#fff; color:#222; padding:10px 12px; font:700 10px 'Space Mono',monospace; cursor:pointer; margin:8px 8px 0 0; }
-.cancelButton:hover,.editButton:hover { background:#decbe0; }
-.adminProjectActions { display:flex; flex-wrap:wrap; gap:7px; }
+.formacoesGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 28px;
+}
+
+.formacaoCard {
+    min-height: 220px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 12px;
+    color: #242424;
+    text-decoration: none;
+    background: #fff;
+    border: 2px solid #222;
+    box-shadow: 6px 6px 0 #222;
+    transition: transform .18s, background .18s;
+}
+
+.formacaoCard:hover {
+    background: #fce5f1;
+    transform: translate(-2px, -2px);
+}
+
+.formacaoCard small {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.formacaoCard strong {
+    font: 64px 'VT323', monospace;
+    line-height: .9;
+}
+
+.formacaoCard span {
+    font-size: 14px;
+}
+
+.formacaoCard b {
+    margin-top: 8px;
+    font-size: 11px;
+}
+
+.sectionHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0 14px;
+}
+
+.sectionHeading h2,
+.subjectTitle {
+    font: 28px 'VT323', monospace;
+    margin: 0;
+}
+
+.textLink {
+    color: #b0005b;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.errorMessage {
+    padding: 12px;
+    border: 1px solid #b0005b;
+    background: #fff0f6;
+    font-size: 12px;
+}
+
+.subjectTabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 24px 0;
+}
+
+.subjectTab {
+    border: 1px solid #222;
+    padding: 10px 14px;
+    background: #fff;
+    color: #222;
+    font: 700 11px 'Space Mono', monospace;
+    cursor: pointer;
+}
+
+.subjectTab.active,
+.subjectTab:hover {
+    background: #f10b82;
+    color: #fff;
+}
+
+.subjectTitle {
+    margin: 12px 0 20px;
+}
+
+.bimestre {
+    margin: 22px 0;
+    padding: 18px;
+    border: 1px dashed #ca91cf;
+    background: #fff;
+}
+
+.bimestre h3 {
+    margin: 0 0 14px;
+    color: #b0005b;
+    font: 24px 'VT323', monospace;
+}
+
+.contentCard {
+    padding: 13px 0;
+    border-top: 1px solid #eaddea;
+}
+
+.contentCard h4 {
+    margin: 0 0 8px;
+    font-size: 13px;
+}
+
+.contentCard p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.8;
+    white-space: pre-wrap;
+}
+
+.adminProjectRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid #eaddea;
+}
+
+.adminProjectRow div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.adminProjectRow small {
+    font-size: 10px;
+    color: #666;
+}
+
+.dangerButton {
+    border: 1px solid #a4004e;
+    background: #fff;
+    color: #a4004e;
+    padding: 8px 10px;
+    font: 700 10px 'Space Mono', monospace;
+    cursor: pointer;
+}
+
+.dangerButton:hover {
+    background: #a4004e;
+    color: #fff;
+}
+
+.publishButton:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@media(max-width:700px) {
+    .formacoesGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .sectionHeading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .adminProjectRow {
+        align-items: flex-start;
+    }
+}
+
+.cancelButton,
+.editButton {
+    border: 1px solid #222;
+    background: #fff;
+    color: #222;
+    padding: 10px 12px;
+    font: 700 10px 'Space Mono', monospace;
+    cursor: pointer;
+    margin: 8px 8px 0 0;
+}
+
+.cancelButton:hover,
+.editButton:hover {
+    background: #decbe0;
+}
+
+.adminProjectActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
 
 /* Acesso administrativo */
-.adminLogin { max-width: 480px; display: grid; gap: 16px; padding: 22px; border: 1px solid var(--line, #d7c5d8); background: var(--paper, #fff); }
-.adminLogin label { display: grid; gap: 7px; }
-.adminLogin input { width: 100%; box-sizing: border-box; }
-.adminHeading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
-@media (max-width: 600px) { .adminHeading { flex-direction: column; } }
+.adminLogin {
+    max-width: 480px;
+    display: grid;
+    gap: 16px;
+    padding: 22px;
+    border: 1px solid var(--line, #d7c5d8);
+    background: var(--paper, #fff);
+}
+
+.adminLogin label {
+    display: grid;
+    gap: 7px;
+}
+
+.adminLogin input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.adminHeading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+@media (max-width: 600px) {
+    .adminHeading {
+        flex-direction: column;
+    }
+}
 
 .photoImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
+
 .sticker {
-  width: clamp(180px, 24vw, 320px);
-  height: auto;
-  aspect-ratio: 1 / 1;
-  flex-shrink: 0;
-  display: block;
-  padding: 0;
-  overflow: hidden;
-  background: #000;
+    width: clamp(180px, 24vw, 320px);
+    height: auto;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    background: #000;
 }
 
 .sticker .stickerImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
 @media (max-width: 700px) {
-  .sticker {
-    width: min(70vw, 300px);
-  }
+    .sticker {
+        width: min(70vw, 300px);
+    }
 }
 
-.imageField { display: grid; gap: 6px; }
-.imageFieldLabel { font-size: 11px; font-weight: 700; }
+.imageField {
+    display: grid;
+    gap: 6px;
+}
+
+.imageFieldLabel {
+    font-size: 11px;
+    font-weight: 700;
+}
 
 .imageDrop {
-  position: relative;
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  text-align: center;
-  padding: 34px 20px;
-  border: 3px dashed #222;
-  background: #e2d1e5;
-  cursor: pointer;
-  font-size: 12px;
-  transition: background .15s, transform .15s;
+    position: relative;
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    text-align: center;
+    padding: 34px 20px;
+    border: 3px dashed #222;
+    background: #e2d1e5;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background .15s, transform .15s;
 }
-.imageDrop strong { font: 24px 'VT323'; }
-.imageDrop span { font-size: 10px; }
-.imageDrop:hover, .imageDrop.dragging { background: #f6c9e4; }
-.imageDrop.dragging { transform: scale(1.01); border-color: #f10b82; }
-.imageDrop:focus-within { outline: 3px solid #f10b82; outline-offset: 2px; }
 
-.imagePreview { display: grid; gap: 10px; justify-items: start; }
+.imageDrop strong {
+    font: 24px 'VT323';
+}
+
+.imageDrop span {
+    font-size: 10px;
+}
+
+.imageDrop:hover,
+.imageDrop.dragging {
+    background: #f6c9e4;
+}
+
+.imageDrop.dragging {
+    transform: scale(1.01);
+    border-color: #f10b82;
+}
+
+.imageDrop:focus-within {
+    outline: 3px solid #f10b82;
+    outline-offset: 2px;
+}
+
+.imagePreview {
+    display: grid;
+    gap: 10px;
+    justify-items: start;
+}
+
 .imagePreview img {
-  width: 100%;
-  max-width: 320px;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  border: 2px solid #222;
-  box-shadow: 6px 6px 0 #ca91cf;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 2px solid #222;
+    box-shadow: 6px 6px 0 #ca91cf;
 }
 
 .adminBox input.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.adminProjectRow .adminProjectActions {
+  flex-direction: row;
+  gap: 8px;
+}
+
+.adminProjectActions button {
+  margin: 0;
+  padding: 8px 10px;
 }
