@@ -1,3 +1,17 @@
+const IMAGEM_DATA_URL = /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/;
+const LIMITE_IMAGEM = 1_500_000;
+
+function validarImagem(imagem) {
+  if (imagem === undefined || imagem === null || imagem === '') return;
+  const texto = String(imagem);
+  const ehLink = /^https?:\/\//i.test(texto) && texto.length <= 500;
+  const ehImagemEnviada = texto.length <= LIMITE_IMAGEM && IMAGEM_DATA_URL.test(texto);
+  if (!ehLink && !ehImagemEnviada) {
+    const erro = new Error('Imagem inválida. Envie um JPG, PNG ou WEBP, ou informe um link http(s).');
+    erro.status = 400;
+    throw erro;
+  }
+}
 
 export async function listarProjetos(Projeto, formacaoId) {
   return Projeto.findAll({
@@ -28,6 +42,8 @@ export async function criarProjeto(Projeto, Secao, dados) {
     erro.status = 400;
     throw erro;
   }
+  
+  validarImagem(imagem)
 
   const secao = await Secao.findOne({
     where: { id: secaoId, formacaoId }
@@ -84,6 +100,8 @@ export async function editarProjeto(Projeto, Secao, id, dados) {
       atualizacoes[campo] = dados[campo];
     }
   }
+
+  validarImagem(atualizacoes.imagem)
 
   if (atualizacoes.titulo !== undefined && !atualizacoes.titulo.trim()) {
     const erro = new Error('O título não pode ficar vazio.');

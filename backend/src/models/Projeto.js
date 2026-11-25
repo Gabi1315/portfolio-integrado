@@ -37,7 +37,7 @@ export default (sequelize) => {
       },
 
       imagem: {
-        type: DataTypes.STRING
+        type: DataTypes.TEXT
       },
 
       github: {

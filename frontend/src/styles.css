@@ -648,3 +648,69 @@ footer {
   object-fit: cover;
   display: block;
 }
+.sticker {
+  width: clamp(180px, 24vw, 320px);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  display: block;
+  padding: 0;
+  overflow: hidden;
+  background: #000;
+}
+
+.sticker .stickerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .sticker {
+    width: min(70vw, 300px);
+  }
+}
+
+.imageField { display: grid; gap: 6px; }
+.imageFieldLabel { font-size: 11px; font-weight: 700; }
+
+.imageDrop {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+  padding: 34px 20px;
+  border: 3px dashed #222;
+  background: #e2d1e5;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background .15s, transform .15s;
+}
+.imageDrop strong { font: 24px 'VT323'; }
+.imageDrop span { font-size: 10px; }
+.imageDrop:hover, .imageDrop.dragging { background: #f6c9e4; }
+.imageDrop.dragging { transform: scale(1.01); border-color: #f10b82; }
+.imageDrop:focus-within { outline: 3px solid #f10b82; outline-offset: 2px; }
+
+.imagePreview { display: grid; gap: 10px; justify-items: start; }
+.imagePreview img {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 2px solid #222;
+  box-shadow: 6px 6px 0 #ca91cf;
+}
+
+.adminBox input.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

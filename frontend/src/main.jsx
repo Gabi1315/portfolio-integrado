@@ -65,6 +65,83 @@ function Aprendizagens() { return <Page title="APRENDIZAGENS"><div className="pa
 function Registros() { return <Page title="REGISTROS"><div className="gallery"><div>ADICIONE SEUS REGISTROS</div></div><p className="hint">Inclua fotografias e vídeos das atividades e dos projetos realizados.</p></Page>; }
 function Reflexao() { return <Page title="REFLEXÃO"><div className="paper"><h2>Minha trajetória</h2><p>Registre como foi sua jornada, quais experiências marcaram sua aprendizagem e quais desafios conseguiu superar.</p><h3>Autoavaliação</h3><p>Descreva o que desenvolveu e o que ainda deseja melhorar.</p></div></Page>; }
 
+function prepararImagem(arquivo, larguraMax = 1000, qualidade = 0.8) {
+  return new Promise((resolve, reject) => {
+    if (!arquivo.type.startsWith('image/')) {
+      return reject(new Error('Escolha um arquivo de imagem (JPG, PNG ou WEBP).'));
+    }
+    const leitor = new FileReader();
+    leitor.onerror = () => reject(new Error('Não foi possível ler o arquivo.'));
+    leitor.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Esse arquivo não parece ser uma imagem válida.'));
+      img.onload = () => {
+        const escala = Math.min(1, larguraMax / img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * escala);
+        canvas.height = Math.round(img.height * escala);
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const resultado = canvas.toDataURL('image/jpeg', qualidade);
+        if (resultado.length > 1_400_000) return reject(new Error('A imagem ficou pesada demais. Use uma menor.'));
+        resolve(resultado);
+      };
+      img.src = leitor.result;
+    };
+    leitor.readAsDataURL(arquivo);
+  });
+}
+
+function CampoImagem({ valor, onChange }) {
+  const [arrastando, setArrastando] = useState(false);
+  const [processando, setProcessando] = useState(false);
+  const [erro, setErro] = useState('');
+
+  async function receber(arquivo) {
+    if (!arquivo) return;
+    setErro('');
+    setProcessando(true);
+    try {
+      onChange(await prepararImagem(arquivo));
+    } catch (e) {
+      setErro(e.message);
+    } finally {
+      setProcessando(false);
+    }
+  }
+
+  return (
+    <div className="imageField">
+      <span className="imageFieldLabel">Imagem do projeto</span>
+      {valor ? (
+        <div className="imagePreview">
+          <img src={valor} alt="Pré-visualização da imagem do projeto" />
+          <button type="button" className="cancelButton" onClick={() => onChange('')}>REMOVER IMAGEM</button>
+        </div>
+      ) : (
+        <label
+          className={`imageDrop${arrastando ? ' dragging' : ''}`}
+          onDragOver={(e) => { e.preventDefault(); setArrastando(true); }}
+          onDragLeave={() => setArrastando(false)}
+          onDrop={(e) => { e.preventDefault(); setArrastando(false); receber(e.dataTransfer.files[0]); }}
+        >
+          <input
+            type="file"
+            accept="image/*"
+            className="srOnly"
+            onChange={(e) => { receber(e.target.files[0]); e.target.value = ''; }}
+          />
+          <strong>{processando ? 'Preparando imagem...' : 'Arraste uma imagem aqui'}</strong>
+          <span>ou clique para escolher do computador (JPG, PNG ou WEBP)</span>
+        </label>
+      )}
+      {erro && <p className="errorMessage" role="alert">{erro}</p>}
+    </div>
+  );
+}
+
 function Admin() {
   const navigate = useNavigate();
   const [projeto, setProjeto] = useState(projetoVazio);
@@ -176,13 +253,13 @@ function Admin() {
 
   return <section className="page admin"><div className="adminHeading"><div><h1 className="sectionTitle">ÁREA ADMINISTRATIVA</h1><p className="intro">Use esta área para cadastrar e organizar o material que será exibido no portfólio público.</p></div><button className="cancelButton" type="button" onClick={sair}>SAIR</button></div>
     {carregando && <p className="hint">Carregando dados...</p>}
-    <div className="adminBox"><h2>{editandoId ? 'EDITAR PROJETO • SENAI' : 'NOVO PROJETO • SENAI'}</h2><p className="adminHint">Preencha os dados do projeto. Para imagens e arquivos, informe links públicos; o upload direto ainda não está implementado.</p>
+    <div className="adminBox"><h2>{editandoId ? 'EDITAR PROJETO • SENAI' : 'NOVO PROJETO • SENAI'}</h2><p className="adminHint">Preencha os dados do projeto. Arraste uma imagem para o campo de imagem e informe os links do GitHub e do projeto.</p>
       <form onSubmit={salvarProjeto}>
         <label>Título<input required maxLength="255" value={projeto.titulo} onChange={(e) => setProjeto({ ...projeto, titulo: e.target.value })} placeholder="Nome do projeto" /></label>
         <label>Descrição<textarea required value={projeto.descricao} onChange={(e) => setProjeto({ ...projeto, descricao: e.target.value })} placeholder="Explique o objetivo e o desenvolvimento do projeto" /></label>
         <label>Tecnologias<input value={projeto.tecnologias} onChange={(e) => setProjeto({ ...projeto, tecnologias: e.target.value })} placeholder="Ex.: React, Node.js e MySQL" /></label>
         <label>Categoria<input value={projeto.categoria} onChange={(e) => setProjeto({ ...projeto, categoria: e.target.value })} placeholder="Ex.: Projeto Integrado" /></label>
-        <label>Imagem (URL)<input type="url" value={projeto.imagem} onChange={(e) => setProjeto({ ...projeto, imagem: e.target.value })} placeholder="https://..." /></label>
+        <CampoImagem valor={projeto.imagem} onChange={(img) => setProjeto((atual) => ({ ...atual, imagem: img }))} />
         <label>GitHub (URL)<input type="url" value={projeto.github} onChange={(e) => setProjeto({ ...projeto, github: e.target.value })} placeholder="https://github.com/..." /></label>
         <label>Link do projeto (URL)<input type="url" value={projeto.link} onChange={(e) => setProjeto({ ...projeto, link: e.target.value })} placeholder="https://..." /></label>
         <button className="publishButton" type="submit" disabled={!projeto.secaoId}>{editandoId ? 'SALVAR ALTERAÇÕES' : 'PUBLICAR PROJETO'}</button>

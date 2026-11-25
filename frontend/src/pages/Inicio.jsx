@@ -10,7 +10,9 @@ export default function Inicio() {
         <p>Um espaço para reunir trabalhos, aprendizados, registros e experiências do Ensino Médio.</p>
         <Link className="primary" to="/formacoes">ESCOLHER FORMAÇÃO →</Link>
       </div>
-      <div className="sticker">Y2K<br /><small>digital scrapbook</small></div>
+      <div className="sticker">
+        <img src="/destaque.jpeg" alt="Ilustração em neon" className="stickerImg" />
+      </div>
     </section>
   );
 }

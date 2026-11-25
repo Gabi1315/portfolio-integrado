@@ -37,6 +37,8 @@ app.use(cors({
   }
 }));
 
+app.use('/api/projetos', express.json({ limit: '2mb' }));
+
 app.use(express.json({ limit: '100kb' }));
 
 // Models
