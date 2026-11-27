@@ -57,8 +57,6 @@ A conexão direta (`db.XXXX.supabase.co`) **não funciona** nessas redes, porque
 - `DB_PASSWORD` = a senha do banco (somente ela)
 - `DB_NAME` = `postgres`
 
-> No plano gratuito, o Supabase **pausa o projeto após alguns dias sem uso** e o site passa a dar erro. Abra o painel e clique em **Resume project**. Antes de apresentar o trabalho, abra o site para conferir.
-
 ## 2. Variáveis de ambiente
 
 ### Backend (`backend/.env`, e no painel da Vercel)
