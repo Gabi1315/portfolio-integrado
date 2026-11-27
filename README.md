@@ -2,10 +2,6 @@
 
 Projeto escolar com site em **React + Vite**, API em **Node.js + Express** e banco **PostgreSQL no Supabase**. O site e a API ficam publicados na **Vercel**, como dois projetos separados a partir deste mesmo repositório.
 
-```
-Navegador  →  Frontend (Vercel)  →  API Express (Vercel)  →  Banco (Supabase)
-```
-
 ## Estrutura de pastas
 
 ```
